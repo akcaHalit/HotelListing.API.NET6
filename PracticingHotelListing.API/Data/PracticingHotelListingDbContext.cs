@@ -1,26 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
-namespace HotelListing.API.Data
+namespace PracticingHotelListing.API.Data
 {
-    public class HotelListingDbContext : DbContext
+    public class PracticingHotelListingDbContext : DbContext
     {
-        public HotelListingDbContext(DbContextOptions options) : base(options)
-        {
-           
+        public PracticingHotelListingDbContext(DbContextOptions options) : base(options) 
+        { 
+                
         }
-        
+
         public DbSet<Hotel> Hotels { get; set; }
+
         public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Country>().HasData(
                 new Country
                 {
                     Id = 1,
-                    Name = "Jamaica",
+                    Name= "Jamaica",
                     shortName = "JM"
                 },
                 new Country
@@ -32,7 +33,7 @@ namespace HotelListing.API.Data
                 new Country
                 {
                     Id = 3,
-                    Name = "Cayman Island",
+                    Name = "Cayman Islands",
                     shortName = "CI"
                 }
             );
@@ -42,35 +43,12 @@ namespace HotelListing.API.Data
                 {
                     Id = 1,
                     Name = "Sandals Resort and SPA",
-                    Adress = "Negril",
+                    Address = "Negril",
                     CountryId = 1,
-                    Rating = 4.5
-                },
-
-                new Hotel
-                {
-                    Id = 2,
-                    Name = "Comfort Suites",
-                    Adress = "George Town",
-                    CountryId = 3,
-                    Rating = 4.3
-                },
-                new Hotel
-                {
-                    Id = 3,
-                    Name = "Grand Palldium",
-                    Adress = "Nassua",
-                    CountryId = 2,
                     Rating = 4
                 }
-              );
-
+             );
         }
-
-
-
-
-
 
     }
 }

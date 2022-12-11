@@ -5,21 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HotelListing.API.Data;
+using PracticingHotelListing.API.Data;
 
-namespace HotelListing.API.Controllers
+namespace PracticingHotelListing.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly HotelListingDbContext _context;
+        private readonly PracticingHotelListingDbContext _context;
 
-        public CountriesController(HotelListingDbContext context)
+        public CountriesController(PracticingHotelListingDbContext context)
         {
             _context = context;
         }
-
 
         // GET: api/Countries
         [HttpGet]
@@ -29,8 +28,8 @@ namespace HotelListing.API.Controllers
             return Ok(countries);
         }
 
-        // GET: api/Countries/5     //  hotelId/1 örnek
-        [HttpGet("{id}")]           //  [HttpGet("{id}/hotelId/{hotelId}")]    
+        // GET: api/Countries/5
+        [HttpGet("{id}")]
         public async Task<ActionResult<Country>> GetCountry(int id)
         {
             var country = await _context.Countries.FindAsync(id);
@@ -43,7 +42,6 @@ namespace HotelListing.API.Controllers
             return Ok(country);
         }
 
-
         // PUT: api/Countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -51,7 +49,7 @@ namespace HotelListing.API.Controllers
         {
             if (id != country.Id)
             {
-                return BadRequest("Invalid Record Id");
+                return BadRequest();
             }
 
             _context.Entry(country).State = EntityState.Modified;
@@ -75,7 +73,6 @@ namespace HotelListing.API.Controllers
             return NoContent();
         }
 
-
         // POST: api/Countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -86,7 +83,6 @@ namespace HotelListing.API.Controllers
 
             return CreatedAtAction("GetCountry", new { id = country.Id }, country);
         }
-
 
         // DELETE: api/Countries/5
         [HttpDelete("{id}")]
@@ -108,9 +104,5 @@ namespace HotelListing.API.Controllers
         {
             return _context.Countries.Any(e => e.Id == id);
         }
-    
-
-
-
     }
 }

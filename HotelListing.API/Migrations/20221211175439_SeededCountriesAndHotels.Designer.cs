@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelListing.API.Migrations
 {
     [DbContext(typeof(HotelListingDbContext))]
-    [Migration("20221127142741_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20221211175439_SeededCountriesAndHotels")]
+    partial class SeededCountriesAndHotels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,26 @@ namespace HotelListing.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Jamaica",
+                            shortName = "JM"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Bahamas",
+                            shortName = "BM"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Cayman Island",
+                            shortName = "CI"
+                        });
                 });
 
             modelBuilder.Entity("HotelListing.API.Data.Hotel", b =>
@@ -68,6 +88,32 @@ namespace HotelListing.API.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adress = "Negril",
+                            CountryId = 1,
+                            Name = "Sandals Resort and SPA",
+                            Rating = 4.5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Adress = "George Town",
+                            CountryId = 3,
+                            Name = "Comfort Suites",
+                            Rating = 4.2999999999999998
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Adress = "Nassua",
+                            CountryId = 2,
+                            Name = "Grand Palldium",
+                            Rating = 4.0
+                        });
                 });
 
             modelBuilder.Entity("HotelListing.API.Data.Hotel", b =>
